@@ -22,7 +22,7 @@ else:
     from api.v1.auth.auth import Auth
     auth = Auth()
 
-excluded_paths = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/', '/api/v1/stats/']
+excluded_paths = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
 
 @app.before_request
 def before_request():
