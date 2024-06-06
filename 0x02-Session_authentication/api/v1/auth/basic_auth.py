@@ -2,7 +2,7 @@
 from .auth import Auth
 from models.user import User
 import base64
-"""BassiAuth class
+"""BasicAuth class
 """
 
 class BasicAuth(Auth):
