@@ -43,3 +43,8 @@ class Auth():
         """ Get currenet USER
         """
         return None
+    
+    def session_cookie(self, request=None):
+        """ Sesion cookies
+        """
+        

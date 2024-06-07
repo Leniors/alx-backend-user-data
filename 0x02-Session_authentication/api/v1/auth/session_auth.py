@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-from .auth import Auth
-import uuid
 """SessionAuth class
 """
+from .auth import Auth
+import uuid
 
 class SessionAuth(Auth):
+    """ Class Session Auth
+    """
     
     user_id_by_session_id = {}
     
