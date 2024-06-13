@@ -14,7 +14,7 @@ def root():
     """
     return jsonify({"message": "Bienvenue"})
 
-@app.route("/users", methods=['GET', 'POST'])
+@app.route("/users", methods=['POST'])
 def users():
     """ Users
     """
