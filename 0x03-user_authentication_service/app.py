@@ -55,17 +55,17 @@ def logout():
     """Logout a user by destroying their session.
     """
     session_id = request.cookies.get('session_id')
-    if session_id is None:
-        return abort(403)
     
     user = AUTH.get_user_from_session_id(session_id)
-    if user is None:
+    if user:
+        AUTH.destroy_session(user.id)
+        response = redirect('/')
+        response.delete_cookie('session_id')
+        return response
+    else:
         return abort(403)
 
-    AUTH.destroy_session(user.id)
-    response = redirect('/')
-    response.delete_cookie('session_id')
-    return response
+    
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
