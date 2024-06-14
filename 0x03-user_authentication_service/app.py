@@ -83,7 +83,8 @@ def profile():
 
 @app.route('/reset_password', methods=['POST'])
 def get_reset_password_token():
-    """Handles the POST /reset_password route to generate a reset token."""
+    """Handles the POST /reset_password route to generate a reset token.
+    """
     email = request.form.get('email')
     if not email:
         return jsonify({"message": "Email is required"})
@@ -93,6 +94,23 @@ def get_reset_password_token():
         return jsonify({"email": email, "reset_token": token}), 200
     except ValueError:
         return jsonify({"message": "Email not registered"}), 403
+    
+@app.route('/reset_password', methods=['PUT'])
+def update_password():
+    """Handles the PUT /reset_password route to update user's password.
+    """
+    email = request.form.get('email')
+    reset_token = request.form.get('reset_token')
+    new_password = request.form.get('new_password')
+
+    if not email or not reset_token or not new_password:
+        return jsonify({"message": "Email, reset_token, and new_password are required"}), 400
+
+    try:
+        AUTH.update_password(reset_token, new_password)
+        return jsonify({"email": email, "message": "Password updated"}), 200
+    except ValueError:
+        return jsonify({"message": "Invalid reset token"}), 403
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
