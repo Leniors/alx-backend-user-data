@@ -45,7 +45,7 @@ def login():
     # Assuming there is a method to create a session for the user
     user = AUTH._db.find_user_by(email=email)
     session_id = AUTH.create_session(email)  # Create session ID for the user
-
+    print(session_id)
     response = make_response(jsonify({"email": email, "message": "logged in"}))
     response.set_cookie("session_id", session_id)
     return response
@@ -67,7 +67,19 @@ def logout():
     response.set_cookie("session_id", "", expires=0)
     return response
 
-    
+@app.route('/profile', methods=['GET'])
+def profile():
+    """Get user profile by session ID.
+    """
+    session_id = request.cookies.get('session_id')
+    if session_id is None:
+        return abort(403)
+
+    user = AUTH.get_user_from_session_id(session_id)
+    if user is None:
+        return abort(403)
+
+    return jsonify({"email": user.email}), 200    
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
