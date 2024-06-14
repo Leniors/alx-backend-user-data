@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ Flask app
 """
-from flask import Flask, jsonify, request, abort, make_response
+from flask import Flask, jsonify, request, abort, make_response, redirect
 from auth import Auth
 
 app = Flask(__name__)
