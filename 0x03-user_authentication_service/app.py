@@ -72,14 +72,11 @@ def profile():
     """Get user profile by session ID.
     """
     session_id = request.cookies.get('session_id')
-    print(type(session_id))
     if session_id is None:
-        print("No ssesion id")
         return abort(403)
 
     user = AUTH.get_user_from_session_id(session_id)
     if user is None:
-        print("no user")
         return abort(403)
 
     return jsonify({"email": user.email}), 200    
